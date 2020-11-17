@@ -1,0 +1,41 @@
+file_name='lenaembed.jpg';
+watermarked=imread(file_name);
+watermarked_R=watermarked(:,:,1);
+Mm=size(watermarked_R,1);
+Nn=size(watermarked_R,2);
+extracted=zeros(Mm,Nn);
+for i=1:Nn
+    for j=1:Mm
+        extracted(i,j)=bitget(watermarked_R(i,j),1);
+    end
+end
+% 
+sumtemp=0;
+num_row_full1=0;
+num_col_full1=0;
+row_index=[];
+col_index=[];
+for i=1:Nn
+    for j=1:Mm
+        sumtemp=sumtemp+extracted(i,j);
+        if(j==Mm)
+            if(sumtemp/Mm>0.95)
+                num_row_full1=num_row_full1+1;
+                row_index(num_row_full1)=i;
+            end
+        end
+    end
+    sumtemp=0;
+end
+for i=1:Mm
+    for j=1:Nn
+        sumtemp=sumtemp+extracted(i,j);
+        if(j==Nn)
+            if(sumtemp/Nn>0.95)
+                
+            end
+        end
+    end
+    sumtemp=0;
+end
+extracted;
