@@ -1,4 +1,4 @@
-file_name='lenaembed.tiff';
+file_name='lenaembed.png';
 watermarked=imread(file_name);
 watermarked_R=watermarked(:,:,1);
 Mm=size(watermarked_R,1);
@@ -53,29 +53,21 @@ for i=1:Mm
     end
     sumtemp=0;
 end
-num1_row=size(row_matrix_index);
-num1_col=size(col_matrix_index);
+num1_row=size(row_matrix_index,2);
+num1_col=size(col_matrix_index,2);
 % 取一个message矩阵,作为单一结果
-single_res_message=zeros(8);
+single_res_messege=zeros(8);
 for ii=1:8
     for jj=1:8
-        single_res_message(ii,jj)=extracted(row_matrix_index(1)+ii,col_matrix_index(1)+jj);
+        single_res_messege(ii,jj)=extracted(row_matrix_index(1)+ii,col_matrix_index(1)+jj);
     end
 end
-% y=[];
-% x=[];
-% for i=1:8
-%     for j=1:8
-%         if(j==1)
-%             y(i)=' ';
-%         end
-%         y(i)=strcat(y(i),num2str(single_res_message(i,j)));
-%     end
-%     x=strcat(char(str2num(y(i))));
-% end
-% for i=1:num1_row-1
-%     for j=1:num1_col-1
-%         
-%     end
-% end
+res=zeros(1,8);
+for i=1:8
+    for j=1:8
+        res(i)=res(i)+bitshift(single_res_messege(i,j),j-1);
+    end
+end
+mes_res=char(res);
+% 判别以及平均
 
